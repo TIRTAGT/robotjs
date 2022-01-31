@@ -277,6 +277,12 @@ void unicodeTap(const unsigned value)
 		ip.ki.dwFlags = KEYEVENTF_UNICODE; // KEYEVENTF_KEYUP for key release.
 
 		SendInput(1, &ip, sizeof(INPUT));
+
+		// This line was from : https://github.com/tillbaks/robotjs/commit/0ac7be2878b887e25485311846dbe2b3411f384a
+		
+		// Send a KEY UP as well to avoid missing input when not delaying between keypress
+		ip.ki.dwFlags |= KEYEVENTF_KEYUP;
+		SendInput(1, &ip, sizeof(INPUT));
 	#endif
 }
 
